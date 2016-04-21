@@ -37,20 +37,27 @@ public class OrderItem implements Serializable {
     @NotNull
     @Column(name = "ORDERITEM_ID")
     private Integer orderitemId;
-    @Column(name = "QUANTITY")
-    private Integer quantity;
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
     @ManyToOne
     private OrderClass orderId;
     @JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
     @ManyToOne
     private Product productId;
+    @Column(name = "QUANTITY")
+    private Integer quantity;
 
     public OrderItem() {
     }
 
     public OrderItem(Integer orderitemId) {
         this.orderitemId = orderitemId;
+    }
+    
+    public OrderItem(Integer orderitemId, OrderClass orderId, Product productId, Integer quantity) {
+        this.orderitemId = orderitemId;
+        this.orderId = orderId;
+        this.productId = productId;
+        this.quantity = quantity;
     }
 
     public Integer getOrderitemId() {

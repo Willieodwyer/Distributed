@@ -51,6 +51,11 @@ public class OrderClass implements Serializable {
     public OrderClass(Integer orderId) {
         this.orderId = orderId;
     }
+    
+    public OrderClass(Integer orderId, User userId) {
+        this.orderId = orderId;
+        this.userId = userId;
+    }
 
     public Integer getOrderId() {
         return orderId;

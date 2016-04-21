@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p"),
     @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId"),
     @NamedQuery(name = "Product.findByDescription", query = "SELECT p FROM Product p WHERE p.description = :description"),
+    @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price"),
     @NamedQuery(name = "Product.findByStock", query = "SELECT p FROM Product p WHERE p.stock = :stock")})
 public class Product implements Serializable {
 
@@ -43,6 +44,8 @@ public class Product implements Serializable {
     @Size(max = 30)
     @Column(name = "DESCRIPTION")
     private String description;
+    @Column(name = "PRICE")
+    private Double price;
     @Column(name = "STOCK")
     private Integer stock;
     @OneToMany(mappedBy = "productId")
@@ -53,6 +56,13 @@ public class Product implements Serializable {
 
     public Product(Integer productId) {
         this.productId = productId;
+    }
+    
+    public Product(Integer productId, String description, Double price, Integer stock) {
+        this.productId = productId;
+        this.description = description;
+        this.price = price;
+        this.stock = stock;
     }
 
     public Integer getProductId() {
@@ -71,6 +81,14 @@ public class Product implements Serializable {
         this.description = description;
     }
 
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+    
     public Integer getStock() {
         return stock;
     }

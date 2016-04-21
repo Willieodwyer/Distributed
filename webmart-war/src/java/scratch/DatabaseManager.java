@@ -5,7 +5,7 @@
  */
 package scratch;
 
-import data.User;
+import data.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,20 +20,20 @@ import javax.persistence.Query;
  *
  * @author Eoin
  */
-@Named(value = "entityTest")
+@Named(value = "db")
 @RequestScoped
-public class EntityTest {
+public class DatabaseManager {
     @PersistenceContext(unitName = "webmart-warPU")
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
 
-    private String name = "Joe";
+    private String name;
     
     /**
      * Creates a new instance of ShowCustomerBean
      */
-    public EntityTest() {
+    public DatabaseManager() {
     }
 
     /**
@@ -46,7 +46,6 @@ public class EntityTest {
         Query query = em.createNamedQuery("User.findByName")
                 .setParameter("name", name);
         // return query result
-        System.out.println(query.getResultList().toString());
         return query.getResultList();
     }
     
@@ -83,6 +82,40 @@ public class EntityTest {
         }
     }
     
-    
+    /* Initialise database tables if empty */
+    public void setup() {
+        Query query = em.createNamedQuery("User.findAll");
+        if(query.getResultList().size() == 0) {
+            System.out.print("Initialising database..");
+            
+            /* Users */
+            User usera = new User(1, "toor", "4uIdo0!", 1, "Toor", "Admin");
+            persist(usera);
+            User userb = new User(2, "joe", "1D10T?", 0, "Joe", "First customer");
+            persist(userb);
+            
+            /* Products */
+            Product proda = new Product(1, "i5-2500K", 133.00, 2);
+            persist(proda);
+            Product prodb = new Product(2, "i5-2550K", 147.00, 5);
+            persist(prodb);
+            Product prodc = new Product(3, "i5-3470S", 105.00, 4);
+            persist(prodc);
+            Product prodd = new Product(4, "i5-6400", 227.00, 7);
+            persist(prodd);
+            Product prode = new Product(5, "i7-6700K", 299.00, 8);
+            persist(prode);
+            
+            /* Orders */
+            OrderClass ordera = new OrderClass(1, userb);
+            persist(ordera);
+            
+            /* Order Items */
+            OrderItem itema = new OrderItem(1, ordera, proda, 1);
+            persist(itema);
+            OrderItem itemb = new OrderItem(2, ordera, prode, 2);
+            persist(itemb);
+        }
+    }
     
 }
