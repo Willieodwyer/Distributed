@@ -2,3 +2,9 @@
 *.jar
 *.war
 *.ear
+dist/*
+webmart-war/build/*
+webmart-ejb/dist/*
+webmart-ejb/build/*
+webmart-war/dist/*
+webmart-war/nbproject/private/*
