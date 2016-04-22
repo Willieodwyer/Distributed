@@ -3,6 +3,7 @@
 *.war
 *.ear
 dist/*
+build/*
 webmart-war/build/*
 webmart-ejb/dist/*
 webmart-ejb/build/*
