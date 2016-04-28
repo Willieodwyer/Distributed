@@ -9,11 +9,14 @@
     <h:body>
         <f:event type="preRenderView" listener="#{db.setup}" />
         <h:form id="form">
-            <h:outputText value="Enter UserName: " /><br></br>
+            <h:outputText value="Enter Username: " /><br></br>
             <h:inputText id="uname" value="#{login.username}" /><br></br>
+            <br/>
             <h:outputText value="Enter Password: " /><br></br>
-            <h:inputText id="pword" value="#{login.password}" /><br></br>
+            <h:inputSecret id="pword" value="#{login.password}" /><br></br>
+            <br/>
             <h:commandButton value="Submit" action="#{login.checkUserLogin()}"/><br></br>
+            <br/>
             <h:outputText value="#{login.result}"/><br></br>
 
 

@@ -8,7 +8,8 @@ package scratch;
 import java.io.Serializable;
 import javax.annotation.Resource;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedBean;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -17,7 +18,7 @@ import javax.persistence.Query;
  *
  * @author werl
  */
-@Named(value = "login")
+@ManagedBean
 @SessionScoped
 public class Login implements Serializable{
     
@@ -32,7 +33,6 @@ public class Login implements Serializable{
     private String username = "";
     private String password = "";
     private String result = "";
-
     public String getUsername() {
         return username;
     }
@@ -58,17 +58,21 @@ public class Login implements Serializable{
      * @param password
      * @return true/false if list contains/doesn't contain a user
      */
-    public void checkUserLogin() {
+    public String checkUserLogin() {
         // create named query and set parameter
         Query query;
         query = em.createNamedQuery("User.checkUserLogin")
                 .setParameter("username", this.username)
                 .setParameter("password",this.password);
         // set result as query result
-        if(query.getResultList().size() > 0)
+        if(query.getResultList().size() > 0){
             this.result =  query.getResultList().get(0).toString();
-        else
-            this.result = "Incorrect login details";
+            return "valid";
+        }
+        else{
+             this.result = "Incorrect login details";
+             return "invalid";
+        }
             
     }
 
