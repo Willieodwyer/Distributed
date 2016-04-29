@@ -132,4 +132,10 @@ public class Product implements Serializable {
         return "data.Product[ productId=" + productId + " ]";
     }
     
+    public int getUniqueID() {
+        // returns new id for insertions
+        
+        return 0;
+    }
+    
 }
