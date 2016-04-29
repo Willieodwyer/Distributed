@@ -16,18 +16,19 @@ and open the template in the editor.
         <h2>Webmart - Edit Profile</h2>
        
         <h:form id="form">
-            <h:outputText value="Customer ID: #{userBean.userID}"/><br/>
+            <h:outputText value="Customer ID:"/><br/>
+            <h:inputText id="userID" value="#{userBean.userID}" /><br/>
             <br/>
-            <h:outputText value="Edit Username: " />
-            <h:inputText id="uname" value="#{userBean.username}" /><br></br>
+            <h:outputText value="Edit Username: " /><br/>
+            <h:inputText id="unameMod" value="#{userBean.username}" /><br></br>
             <br/>
-            <h:outputText value="Edit Name:     " />    
-            <h:inputText id="name" value="#{userBean.name}" /><br></br>
+            <h:outputText value="Edit Name: " /><br/>    
+            <h:inputText id="nameMod" value="#{userBean.name}" /><br></br>
             <br/>
-            <h:outputText value="Edit Message: " />
-            <h:inputText id="message" value="#{userBean.bio}" /><br></br>
+            <h:outputText value="Edit Message: " /><br/>
+            <h:inputText id="messageMod" maxlength="500"  value="#{userBean.bio}" /><br></br>
             <br/>
-            <h:commandButton value="Update" action="#{userBean.updateUser()}"/><br></br>
+            <h:commandButton value="Save Changes"  action="#{userBean.updateUser()}"/><br></br>
             <br/>
 
 

@@ -15,6 +15,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.UserTransaction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -38,6 +40,11 @@ public class userBean implements Serializable{
     private String bio;
     private int userID;
     private User user;
+    
+    private int userIDMod;
+    private String nameMod;
+    private String bioMod;
+    private String usernameMod;
    
     /**
      * Creates a new instance of userBean
@@ -103,21 +110,71 @@ public class userBean implements Serializable{
         this.user = user;
     }
     
-    public void updateUser() {
+    public String updateUser() {
         
-        //utx.begin();
-        em.getTransaction().begin();
-        //create named query to update user details
-        Query query;
-        query = em.createNamedQuery("User.updateById");
-        query.setParameter("username", this.username);
-        query.setParameter("name", this.name);
-        query.setParameter("bio", this.bio);
-        query.setParameter("userId", this.userID);
-        
-        query.executeUpdate();
-        //utx.commit();
-        em.getTransaction().commit();
+       User userMod = em.find(User.class, userID);
+       if(userMod != null){
+            userMod.setUsername(username);
+            userMod.setBio(bio);
+            userMod.setName(name);
+            merge(userMod);
+       }
+       return "valid";
+       
+    }
+
+    public String getNameMod() {
+        return nameMod;
+    }
+
+    public void setNameMod(String nameMod) {
+        this.nameMod = nameMod;
+    }
+
+    public String getBioMod() {
+        return bioMod;
+    }
+
+    public void setBioMod(String bioMod) {
+        this.bioMod = bioMod;
+    }
+
+    public String getUsernameMod() {
+        return usernameMod;
+    }
+
+    public void setUsernameMod(String usernameMod) {
+        this.usernameMod = usernameMod;
+    }
+
+    public int getUserIDMod() {
+        return userIDMod;
+    }
+
+    public void setUserIDMod(int userIDMod) {
+        this.userIDMod = userIDMod;
+    }
+
+    
+    public void merge(Object object) {
+        try {
+            utx.begin();
+            em.merge(object);
+            utx.commit();
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
+            throw new RuntimeException(e);
+        }
     }
     
+    public void persist(Object object) {
+        try {
+            utx.begin();
+            em.persist(object);
+            utx.commit();
+        } catch (Exception e) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", e);
+            throw new RuntimeException(e);
+        }
+    }
 }

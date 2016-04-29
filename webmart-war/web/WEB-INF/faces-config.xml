@@ -20,4 +20,15 @@
    </navigation-rule>
    <!-- End login Navigation rule -->
    
+   <!-- Navigation rule to proceed if login is correct, if incorrect user stays on homepage(index.xhtml) --> 
+    <navigation-rule>
+      <from-view-id>editProfile.xhtml</from-view-id>
+      <navigation-case>
+         <from-action>#{userBean.updateUser()}</from-action>
+         <from-outcome>valid</from-outcome>
+         <to-view-id>profile.xhtml</to-view-id>
+      </navigation-case>
+   </navigation-rule>
+   <!-- End login Navigation rule -->
+   
 </faces-config>
