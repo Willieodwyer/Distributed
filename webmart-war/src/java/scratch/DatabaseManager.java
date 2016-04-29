@@ -5,7 +5,10 @@
  */
 package scratch;
 
-import data.*;
+import data.Product;
+import data.OrderItem;
+import data.User;
+import data.OrderClass;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;

@@ -9,15 +9,22 @@
     <h:body>
         <h2>Admin Panel</h2>
         
-        Add Product
+        Add Product<br/>
         <h:form>
             <h:outputLabel>Description</h:outputLabel><br/>
-            <h:inputText id="description" value="#{admin.productAddDesc}" /><br/>
+            <h:inputText id="addDescription" value="#{admin.productAddDesc}" /><br/>
             <h:outputLabel>Price</h:outputLabel><br/>
-            <h:inputText id="price" value="#{admin.productAddPrice}" /><br/>
+            <h:inputText id="addPrice" value="#{admin.productAddPrice}" /><br/>
             <h:outputLabel>Stock</h:outputLabel><br/>
-            <h:inputText id="stock" value="#{admin.productAddStock}" /><br/>
-            <h:commandButton value="Add" action="#{admin.addProduct}" />
+            <h:inputText id="addStock" value="#{admin.productAddStock}" /><br/>
+            <h:commandButton value="Add" action="#{admin.addProduct}" /><br/><br/>
+        </h:form>
+        
+        Delete Product<br/>
+        <h:form>
+            <h:outputLabel>ID</h:outputLabel><br/>
+            <h:inputText id="delID" value="#{admin.productDel}" /><br/>
+            <h:commandButton value="Delete" action="#{admin.deleteProduct}" /><br/><br/>
         </h:form>
         
     </h:body>
