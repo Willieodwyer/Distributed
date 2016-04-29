@@ -41,10 +41,6 @@ public class userBean implements Serializable{
     private int userID;
     private User user;
     
-    private int userIDMod;
-    private String nameMod;
-    private String bioMod;
-    private String usernameMod;
    
     /**
      * Creates a new instance of userBean
@@ -123,39 +119,6 @@ public class userBean implements Serializable{
        
     }
 
-    public String getNameMod() {
-        return nameMod;
-    }
-
-    public void setNameMod(String nameMod) {
-        this.nameMod = nameMod;
-    }
-
-    public String getBioMod() {
-        return bioMod;
-    }
-
-    public void setBioMod(String bioMod) {
-        this.bioMod = bioMod;
-    }
-
-    public String getUsernameMod() {
-        return usernameMod;
-    }
-
-    public void setUsernameMod(String usernameMod) {
-        this.usernameMod = usernameMod;
-    }
-
-    public int getUserIDMod() {
-        return userIDMod;
-    }
-
-    public void setUserIDMod(int userIDMod) {
-        this.userIDMod = userIDMod;
-    }
-
-    
     public void merge(Object object) {
         try {
             utx.begin();
