@@ -148,6 +148,14 @@ public class Admin {
         String logMsg = "";
     }
     
+    /* Modify stock of product in database */
+    public void modifyProduct() {
+        Product prod = em.find(Product.class, productModID);
+        prod.setStock(productModStock);
+        merge(prod);
+        
+        /* Send message to logs */
+        String logMsg = "";
     }
     
 }

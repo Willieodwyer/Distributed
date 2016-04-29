@@ -27,6 +27,15 @@
             <h:commandButton value="Delete" action="#{admin.deleteProduct}" /><br/><br/>
         </h:form>
         
+        Modify Product Stock<br/>
+        <h:form>
+            <h:outputLabel>ID</h:outputLabel><br/>
+            <h:inputText id="modID" value="#{admin.productModID}" /><br/>
+            <h:outputLabel>Stock</h:outputLabel><br/>
+            <h:inputText id="modStock" value="#{admin.productModStock}" /><br/>
+            <h:commandButton value="Modify" action="#{admin.modifyProduct}" /><br/><br/>
+        </h:form>
+        
     </h:body>
 </html>
 
