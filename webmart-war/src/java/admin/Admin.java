@@ -145,7 +145,7 @@ public class Admin {
         persist(prod);
         
         /* Send message to logs */
-        String logMsg = "Product added, (" + newID + ", " + productAddDesc + ", " + productAddPrice + ", " + productAddStock + ")";
+        String logMsg = "Product Added: ID-" + newID + ", Description-" + productAddDesc + ", Price-" + productAddPrice + ", Stock-" + productAddStock;
         sendJMSMessageToMsgQueue(logMsg);
     }
     
@@ -155,7 +155,8 @@ public class Admin {
         remove(prod);
         
         /* Send message to logs */
-        String logMsg = "";
+        String logMsg = "Product Deleted: ID-" + productDel;
+        sendJMSMessageToMsgQueue(logMsg);
     }
     
     /* Modify stock of product in database */
@@ -165,7 +166,8 @@ public class Admin {
         merge(prod);
         
         /* Send message to logs */
-        String logMsg = "";
+        String logMsg = "Product Stock Modifed: ID-" + productModID + ", Stock-" + productModStock;
+        sendJMSMessageToMsgQueue(logMsg);
     }
 
     private void sendJMSMessageToMsgQueue(String messageData) {

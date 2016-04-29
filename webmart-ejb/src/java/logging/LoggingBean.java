@@ -30,7 +30,7 @@ public class LoggingBean implements MessageListener {
         try {
             System.out.println(message.getBody(String.class));
         } catch (Exception e) {
-            
+            System.out.println("Error: Exception caught in logging bean");
         }
     }
     
