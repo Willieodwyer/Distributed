@@ -6,15 +6,12 @@
 package admin;
 
 import data.Product;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.jms.JMSConnectionFactory;
-import javax.jms.JMSContext;
-import javax.jms.Queue;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -31,12 +28,6 @@ public class Admin {
     @Resource
     private javax.transaction.UserTransaction utx;
     
-    @Resource(mappedName = "java:app/MsgQueue")
-    private Queue java_appMsgQueue;
-    @Inject
-    @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
-    private JMSContext context;
-    
     private String productAddDesc;
     private double productAddPrice;
     private int productAddStock;
@@ -45,7 +36,7 @@ public class Admin {
 
     private int productModID; /* ID for product to modify */
     private int productModStock; /* New stock quantity */
-        
+    
     public int getProductDel() {
         return productDel;
     }
@@ -145,41 +136,26 @@ public class Admin {
         persist(prod);
         
         /* Send message to logs */
-        String logMsg = "Product Added: ID-" + newID + ", Description-" + productAddDesc + ", Price-" + productAddPrice + ", Stock-" + productAddStock;
-        sendJMSMessageToMsgQueue(logMsg);
+        String logMsg = "Product added, (" + newID + ", " + productAddDesc + ", " + productAddPrice + ", " + productAddStock + ")";
     }
     
     /* Delete product from database */
     public void deleteProduct() {
-        try {
-           Product prod = em.find(Product.class, productDel);
-            remove(prod);
-
-            /* Send message to logs */
-            String logMsg = "Product Deleted: ID-" + productDel;
-            sendJMSMessageToMsgQueue(logMsg);
-        } catch(Exception e) {
-            System.out.println("Error attempting to delete a product");
-        }
+        Product prod = em.find(Product.class, productDel);
+        remove(prod);
+        
+        /* Send message to logs */
+        String logMsg = "";
     }
     
     /* Modify stock of product in database */
     public void modifyProduct() {
-        try {
-            Product prod = em.find(Product.class, productModID);
-            prod.setStock(productModStock);
-            merge(prod);
-
-            /* Send message to logs */
-            String logMsg = "Product Stock Modifed: ID-" + productModID + ", Stock-" + productModStock;
-            sendJMSMessageToMsgQueue(logMsg);
-        } catch(Exception e) {
-            System.out.println("Error attempting to modify a products stock");
-        }
-    }
-
-    private void sendJMSMessageToMsgQueue(String messageData) {
-        context.createProducer().send(java_appMsgQueue, messageData);
+        Product prod = em.find(Product.class, productModID);
+        prod.setStock(productModStock);
+        merge(prod);
+        
+        /* Send message to logs */
+        String logMsg = "";
     }
     
 }

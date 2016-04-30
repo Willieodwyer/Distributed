@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        #{product.checkIfQueryExists()}
+        
+        <h:outputLink value="product_list.xhtml">Browse</h:outputLink><p/>
+        <h:outputLink value="shoppingCart.xhtml">Shopping Cart</h:outputLink><p/> 
+  
+        <h:outputText id = "cartSize" value="Your cart has #{shoppingCart.count} item(s)."/><p/><p/>
+        
+        Product Name:   #{product.product.description}<p/>
+        Product Price:   #{product.product.price}<p/>
+        
+        <h:form id="form">
+            <input type ="hidden" name ="query" value ="#{product.query}"/>
+            <h:commandButton value ="Add to Cart" action="#{product.addToCart()}">
+                <f:ajax execute="@form" render=":cartSize"/>
+            </h:commandButton>
+            
+        </h:form>
+    </h:body>
+</html>
+
+
