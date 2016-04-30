@@ -15,9 +15,9 @@ import javax.jms.MessageListener;
  *
  * @author Eoin
  */
-@JMSDestinationDefinition(name = "jms/MsgQueue", interfaceName = "javax.jms.Queue", resourceAdapter = "jmsra", destinationName = "MsgQueue")
+@JMSDestinationDefinition(name = "java:app/MsgQueue", interfaceName = "javax.jms.Queue", resourceAdapter = "jmsra", destinationName = "MsgQueue")
 @MessageDriven(activationConfig = {
-    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "jms/MsgQueue"),
+    @ActivationConfigProperty(propertyName = "destinationLookup", propertyValue = "java:app/MsgQueue"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class LoggingBean implements MessageListener {

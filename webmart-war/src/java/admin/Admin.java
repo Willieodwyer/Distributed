@@ -31,7 +31,7 @@ public class Admin {
     @Resource
     private javax.transaction.UserTransaction utx;
     
-    @Resource(mappedName = "jms/MsgQueue")
+    @Resource(mappedName = "java:app/MsgQueue")
     private Queue java_appMsgQueue;
     @Inject
     @JMSConnectionFactory("java:comp/DefaultJMSConnectionFactory")
