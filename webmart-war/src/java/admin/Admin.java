@@ -151,23 +151,31 @@ public class Admin {
     
     /* Delete product from database */
     public void deleteProduct() {
-        Product prod = em.find(Product.class, productDel);
-        remove(prod);
-        
-        /* Send message to logs */
-        String logMsg = "Product Deleted: ID-" + productDel;
-        sendJMSMessageToMsgQueue(logMsg);
+        try {
+           Product prod = em.find(Product.class, productDel);
+            remove(prod);
+
+            /* Send message to logs */
+            String logMsg = "Product Deleted: ID-" + productDel;
+            sendJMSMessageToMsgQueue(logMsg);
+        } catch(Exception e) {
+            System.out.println("Error attempting to delete a product");
+        }
     }
     
     /* Modify stock of product in database */
     public void modifyProduct() {
-        Product prod = em.find(Product.class, productModID);
-        prod.setStock(productModStock);
-        merge(prod);
-        
-        /* Send message to logs */
-        String logMsg = "Product Stock Modifed: ID-" + productModID + ", Stock-" + productModStock;
-        sendJMSMessageToMsgQueue(logMsg);
+        try {
+            Product prod = em.find(Product.class, productModID);
+            prod.setStock(productModStock);
+            merge(prod);
+
+            /* Send message to logs */
+            String logMsg = "Product Stock Modifed: ID-" + productModID + ", Stock-" + productModStock;
+            sendJMSMessageToMsgQueue(logMsg);
+        } catch(Exception e) {
+            System.out.println("Error attempting to modify a products stock");
+        }
     }
 
     private void sendJMSMessageToMsgQueue(String messageData) {
