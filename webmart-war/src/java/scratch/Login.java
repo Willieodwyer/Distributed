@@ -13,6 +13,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import data.User;
+import java.io.IOException;
+import javax.faces.context.FacesContext;
+
 /**
  *
  * @author werl
@@ -25,13 +29,11 @@ public class Login implements Serializable{
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
-    
-    /**
-     * Creates a new instance of SessionPage
-     */
+
     private String username = "";
     private String password = "";
     private String result = "";
+    private boolean isAdmin = false;
 
     public String getUsername() {
         return username;
@@ -48,15 +50,19 @@ public class Login implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
     
     //DATABSE STUFF
-        /**
-     * Returns true/false if a user with the given parameters exists
+     /**
+     * Checks if a user with the given parameters exists
      * 
-     * @param name
-     * @param password
-     * @return true/false if list contains/doesn't contain a user
      */
     public void checkUserLogin() {
         // create named query and set parameter
@@ -65,11 +71,13 @@ public class Login implements Serializable{
                 .setParameter("username", this.username)
                 .setParameter("password",this.password);
         // set result as query result
-        if(query.getResultList().size() > 0)
+        if(query.getResultList().size() > 0) {
             this.result =  query.getResultList().get(0).toString();
-        else
+            if(((User)query.getSingleResult()).getAdmin() == 1)
+                isAdmin = true;
+        } else
             this.result = "Incorrect login details";
-            
+        
     }
 
     public String getResult() {
@@ -80,9 +88,14 @@ public class Login implements Serializable{
         this.result = result;
     }
     
+    /* Check if user has access to this page */
+    public void checkAccess() throws IOException {
+        if(!isAdmin)
+            FacesContext.getCurrentInstance().getExternalContext().dispatch("index.xhtml");
+    }
 
     /**
-     * Creates a new instance of FormData
+     * Creates a new instance of Login
      */
     public Login() {
     }
