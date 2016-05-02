@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Shopping Cart</title>
+    </h:head>
+    <h:body>
+        <h:outputText id="cartSize" value="There is #{shoppingCart.count} item(s) in your Shopping Cart."/><br/><br/>
+        
+        <ui:repeat value="#{shoppingCart.cartItems.entrySet().toArray()}" var="p">
+            Your Product Name is: #{p.key.description},   Your Product Price is: #{p.key.price}, Quantity:  #{p.value}
+            Your Product Total Price is: 
+            <h:outputText rendered="#{p.value > 1}" value ="#{p.key.price * p.value}"/>
+            <h:outputText rendered="#{p.value == 1}" value ="#{p.key.price}"/>
+            <br/>
+            <h:form>
+                <h:commandButton value ="Remove From Cart" action="#{shoppingCart.removeFromCart(p.key)}"/>
+                <h:commandButton value ="Add to Cart" action="#{shoppingCart.addtoCart(p.key)}"/>
+            </h:form>
+            <b/>
+        </ui:repeat>
+    </h:body>
+</html>
