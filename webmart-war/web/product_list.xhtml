@@ -17,6 +17,32 @@
                 </h:outputLink>
             </h:column>
         </h:dataTable>
+       
+        <br/><h4>Search</h4>
+        
+        <h:form id="form2">
+            <h:outputText value="Search by description" /><br></br>
+            <h:inputText id="uname" value="#{searchProducts.productDescription}" /><br></br>
+            <h:commandButton value="Search by description" action="#{searchProducts.searchDescription()}"/><br></br>
+        </h:form><br/>
+        
+        
+        <h:form id="form">
+            <h:outputText value="Search by ID" /><br></br>
+            <h:inputText id="uname" value="#{searchProducts.productID}" /><br></br>
+            <h:commandButton value="Search by ID" action="#{searchProducts.searchID()}"/><br></br>
+            <h:outputText value="#{searchProducts.result}"/><br></br>
+        </h:form>
+        
+        <h:dataTable value ="#{searchProducts.products}" var="p">
+            <h:column>
+                <f:facet name ="header" />
+                <h:outputLink value ="product.xhtml">
+                    <f:param name ="query" value="#{p.description}"/>
+                <h:outputText value ="#{p.description}"/>
+                </h:outputLink>
+            </h:column>
+        </h:dataTable>
         
         <br/><h4>Navigation</h4>
         <h:button value="Home" outcome="index.xhtml"/><br/><br/>

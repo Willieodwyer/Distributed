@@ -23,7 +23,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "G19PRODUCT")
 @NamedQueries({
-    @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")})
+    @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p"),
+    @NamedQuery(name = "Products.findByID", query = "SELECT p FROM Products p WHERE p.product_id = :prodID"),
+    @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description LIKE :pDesc")
+})
 public class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;

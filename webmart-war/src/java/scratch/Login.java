@@ -29,10 +29,7 @@ public class Login implements Serializable{
     private EntityManager em;
     @Resource
     private javax.transaction.UserTransaction utx;
-    
-    /**
-     * Creates a new instance of SessionPage
-     */
+
     private String username = "";
     private String password = "";
     private String result = "";
@@ -63,12 +60,9 @@ public class Login implements Serializable{
     }
     
     //DATABSE STUFF
-        /**
-     * Returns true/false if a user with the given parameters exists
+     /**
+     * Checks if a user with the given parameters exists
      * 
-     * @param name
-     * @param password
-     * @return true/false if list contains/doesn't contain a user
      */
     public void checkUserLogin() {
         // create named query and set parameter
@@ -101,7 +95,7 @@ public class Login implements Serializable{
     }
 
     /**
-     * Creates a new instance of FormData
+     * Creates a new instance of Login
      */
     public Login() {
     }
