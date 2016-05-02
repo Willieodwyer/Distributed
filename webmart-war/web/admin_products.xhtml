@@ -9,6 +9,8 @@
     <h:body>
         <h2>Admin Panel</h2>
         
+        <f:event type="preRenderView" listener="#{login.checkAccess}" />
+        
         Add Product<br/>
         <h:form>
             <h:outputLabel>Description</h:outputLabel><br/>
