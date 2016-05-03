@@ -78,6 +78,10 @@ public class userBean implements Serializable{
     public String getBio() {
         return user.getBio();
     }
+    
+    public String getEscapedBio() {
+        return user.getBio().replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "&quot;");
+    }
 
     public void setBio(String message) {
         this.bio = message;
