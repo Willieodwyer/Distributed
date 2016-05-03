@@ -8,6 +8,7 @@
     </h:head>
     <h:body>
         <f:event type="preRenderView" listener="#{db.setup}" />
+        <h3>Login</h3>
         <h:form id="form">
             <h:outputText value="Enter Username: " /><br></br>
             <h:inputText id="uname" value="#{login.username}" /><br></br>
@@ -18,8 +19,12 @@
             <h:commandButton value="Submit" action="#{login.checkUserLogin()}"/><br></br>
             <br/>
             <h:outputText value="#{login.result}"/><br></br>
-
-
         </h:form>
+        
+        <br/><h4>Navigation</h4>
+        <h:button value="Admin Panel" outcome="admin_products.xhtml"/><br/><br/>
+        <h:button value="Browse Products" outcome="product_list.xhtml"/><br/><br/>
+        <h:button value="Shopping Cart" outcome="shoppingCart.xhtml"/><br/>
+        
     </h:body>
 </HTML>
